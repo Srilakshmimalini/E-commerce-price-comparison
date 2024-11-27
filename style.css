@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple to Blue Gradient */
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #f3f4f6; /* Light Gray */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease;
+}
+
+h1 {
+    text-align: center;
+    color: #374151; /* Dark Gray */
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px #e5e7eb; /* Subtle Shadow */
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+form input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid #d1d5db; /* Soft Gray */
+    border-radius: 6px;
+    outline: none;
+    transition: 0.3s;
+}
+
+form input[type="text"]:focus {
+    border-color: #38bdf8; /* Light Teal */
+}
+
+form button {
+    padding: 10px 25px;
+    margin-left: 10px;
+    background: linear-gradient(45deg, #4ade80, #22d3ee); /* Green to Teal */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background: linear-gradient(45deg, #22d3ee, #4ade80); /* Reversed Gradient */
+}
+
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead {
+    background: linear-gradient(45deg, #7c3aed, #4f46e5); /* Purple Tones */
+    color: white;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #e5e7eb; /* Light Border */
+}
+
+tr:nth-child(even) {
+    background-color: #f9fafb; /* Very Light Gray */
+}
+
+tr:hover {
+    background-color: #e0f2fe; /* Light Teal Background */
+    cursor: pointer;
+}
+
+.amazon {
+    color: #4ade80; /* Green Accent */
+    font-weight: bold;
+}
+
+.ebay {
+    color: #ec4899; /* Pink Accent */
+    font-weight: bold;
+}
