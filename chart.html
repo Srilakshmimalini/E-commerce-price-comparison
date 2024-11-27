@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item Prices Bar Chart</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>Price Comparison</title>
     <style>
-        /* General reset and styling */
         * {
             margin: 0;
             padding: 0;
@@ -17,95 +15,103 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple to Blue Gradient */
             padding: 20px;
-            color: #374151; /* Dark Gray */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        h1 {
-            text-align: center;
-            color: #ffffff; /* White Text */
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-            text-shadow: 2px 2px #00000033; /* Subtle shadow */
-        }
-
-        #chart {
+        .chart-container {
             max-width: 900px;
-            margin: 0 auto;
-            background: #f3f4f6; /* Light Gray */
+            background-color: #f3f4f6; /* Light Gray */
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
+
+        h1 {
+            text-align: center;
+            color: #374151; /* Dark Gray */
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
     </style>
 </head>
 <body>
-    <h1>Bar Chart for Price Comparison</h1>
-    <div id="chart"></div>
+    <div class="chart-container">
+        <h1>Price Comparison Bar Chart</h1>
+        <canvas id="priceComparisonChart"></canvas>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Data for the items
-        const items = [
-            { name: "DJI Osmo Mobile 6 Gimbal Stabilizer", price: 89 },
-            { name: "DJI Osmo Mobile SE", price: 69 },
-            { name: "The Peanutshell Crib Mobile", price: 39 },
-            { name: "Tiny Love Meadow Days Take Along Mobile", price: 29 },
-            { name: "Baby Crib Mobile for Boys Girls", price: 18 },
-            { name: "KardiaMobile 6-Lead Personal EKG Monitor", price: 99 },
-            { name: "Google Pixel 7 Pro", price: 289 },
-            { name: "SAMSUNG Galaxy A15 5G", price: 169 },
-            { name: "Manhattan Toy Wimmer-Ferguson Infant Stim-Mobile", price: 34 },
-            { name: "Motorola Moto G 5G", price: 119 }
+        // Laptop data
+        const laptopLabels = [
+            "ASUS Vivobook Go (N4500, 4GB, 128GB)",
+            "ASUS Vivobook Go (Ryzen 3, 8GB, 128GB)",
+            "Acer Aspire 3 (Ryzen 5, 16GB, 512GB)",
+            "HP Stream (N4120, 16GB, 288GB)"
         ];
 
-        // Extract item names and prices
-        const itemNames = items.map(item => item.name);
-        const itemPrices = items.map(item => item.price);
-
-        // Plotly chart configuration
-        const data = [{
-            x: itemNames,
-            y: itemPrices,
-            type: 'bar',
-            marker: { color: '#4ade80' } /* Green Bar Color */
-        }];
-
-        const layout = {
-            title: {
-                text: 'Item Prices Bar Chart',
-                font: {
-                    family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
-                    size: 24,
-                    color: '#374151' /* Dark Gray */
-                }
-            },
-            xaxis: {
-                title: {
-                    text: 'Item Name',
-                    font: {
-                        size: 16,
-                        color: '#374151'
-                    }
-                },
-                tickangle: -45,
-                tickfont: { size: 12, color: '#6b7280' } /* Medium Gray */
-            },
-            yaxis: {
-                title: {
-                    text: 'Price ($)',
-                    font: {
-                        size: 16,
-                        color: '#374151'
-                    }
-                },
-                tickfont: { size: 12, color: '#6b7280' }
-            },
-            plot_bgcolor: '#f3f4f6', /* Light Gray Background */
-            paper_bgcolor: '#f3f4f6', /* Light Gray Background */
-            margin: { t: 60, b: 120 }
+        const platformPrices = {
+            "Amazon": [159, 219, 399, 262],
+            "eBay": [155, 215, 390, 255]
         };
 
-        // Create the chart
-        Plotly.newPlot('chart', data, layout);
+        // Chart configuration
+        const ctx = document.getElementById('priceComparisonChart').getContext('2d');
+        const priceComparisonChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: laptopLabels,
+                datasets: [
+                    {
+                        label: 'Amazon',
+                        data: platformPrices.Amazon,
+                        backgroundColor: 'rgba(74, 222, 128, 0.8)', // Green
+                        borderColor: 'rgba(74, 222, 128, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'eBay',
+                        data: platformPrices.eBay,
+                        backgroundColor: 'rgba(236, 72, 153, 0.8)', // Pink
+                        borderColor: 'rgba(236, 72, 153, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Price (USD)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Laptops'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `$${tooltipItem.raw}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
