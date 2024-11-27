@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Prices Bar Chart</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        /* General reset and styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple to Blue Gradient */
+            padding: 20px;
+            color: #374151; /* Dark Gray */
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff; /* White Text */
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px #00000033; /* Subtle shadow */
+        }
+
+        #chart {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #f3f4f6; /* Light Gray */
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Bar Chart for Price Comparison</h1>
+    <div id="chart"></div>
+
+    <script>
+        // Data for the items
+        const items = [
+            { name: "DJI Osmo Mobile 6 Gimbal Stabilizer", price: 89 },
+            { name: "DJI Osmo Mobile SE", price: 69 },
+            { name: "The Peanutshell Crib Mobile", price: 39 },
+            { name: "Tiny Love Meadow Days Take Along Mobile", price: 29 },
+            { name: "Baby Crib Mobile for Boys Girls", price: 18 },
+            { name: "KardiaMobile 6-Lead Personal EKG Monitor", price: 99 },
+            { name: "Google Pixel 7 Pro", price: 289 },
+            { name: "SAMSUNG Galaxy A15 5G", price: 169 },
+            { name: "Manhattan Toy Wimmer-Ferguson Infant Stim-Mobile", price: 34 },
+            { name: "Motorola Moto G 5G", price: 119 }
+        ];
+
+        // Extract item names and prices
+        const itemNames = items.map(item => item.name);
+        const itemPrices = items.map(item => item.price);
+
+        // Plotly chart configuration
+        const data = [{
+            x: itemNames,
+            y: itemPrices,
+            type: 'bar',
+            marker: { color: '#4ade80' } /* Green Bar Color */
+        }];
+
+        const layout = {
+            title: {
+                text: 'Item Prices Bar Chart',
+                font: {
+                    family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
+                    size: 24,
+                    color: '#374151' /* Dark Gray */
+                }
+            },
+            xaxis: {
+                title: {
+                    text: 'Item Name',
+                    font: {
+                        size: 16,
+                        color: '#374151'
+                    }
+                },
+                tickangle: -45,
+                tickfont: { size: 12, color: '#6b7280' } /* Medium Gray */
+            },
+            yaxis: {
+                title: {
+                    text: 'Price ($)',
+                    font: {
+                        size: 16,
+                        color: '#374151'
+                    }
+                },
+                tickfont: { size: 12, color: '#6b7280' }
+            },
+            plot_bgcolor: '#f3f4f6', /* Light Gray Background */
+            paper_bgcolor: '#f3f4f6', /* Light Gray Background */
+            margin: { t: 60, b: 120 }
+        };
+
+        // Create the chart
+        Plotly.newPlot('chart', data, layout);
+    </script>
+</body>
+</html>
