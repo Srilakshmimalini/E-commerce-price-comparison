@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Scraper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>E-Commerce Product Price Comparison 🎯</h1>
+        <form method="POST" action="/">
+            <input type="text" name="product" placeholder="🔍 Enter product name" required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if data %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Amazon Price</th>
+                        <th>eBay Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row['name'] }}</td>
+                        <td class="amazon">{{ row['price_amazon'] }}</td>
+                        <td class="ebay">{{ row['price_ebay'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
